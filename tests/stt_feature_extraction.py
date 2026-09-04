@@ -4,12 +4,42 @@ import parselmouth
 import numpy as np
 import json
 import re
-
+from jiwer import wer as jiwer_wer, cer as jiwer_cer
 
 # ===== 설정 =====
-AUDIO_PATH = "test_ko.wav"
+# AUDIO_PATH = "./data/test_ko.wav"
+AUDIO_PATH = "./data/A00_S01_F_C_01_030_02_WA_MO.wav"
+LABEL_PATH = "./data/A00_S01_F_C_01_030_02_WA_MO_presentation.json"
 FILLER_WORDS = ["어", "음", "그", "저", "이제", "그니까", "약간"]  # 한국어 대표 필러 (프로젝트별로 조정 필요)
 
+
+def normalize(text: str) -> str:
+    """비교를 위한 정규화: 마침표/쉼표 제거, 연속 공백 정리, 앞뒤 공백 제거"""
+    text = re.sub(r"[.,!?]", "", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
+
+def compute_stt_accuracy(hypothesis, label_path):
+    """STT 정확도 계산 (WER, CER)"""
+    with open(label_path, "r", encoding="utf-8") as f:
+        label_data = json.load(f)
+    reference = label_data["script"]["script_stt_txt"]
+    hypothesis = normalize(hypothesis)   
+    reference = normalize(reference)    
+
+    print("Hypothesis text:", hypothesis)
+    print("\n---\n")
+    print("Reference text:", reference)
+
+    # 단순화된 WER/CER 계산 (공백 기준)
+    #hyp_words = hypothesis.split()
+    #ref_words = reference.split()
+    #wer = (len(ref_words) - sum(1 for h, r in zip(hyp_words, ref_words) if h == r)) / max(len(ref_words), 1)
+    #cer = (len(reference) - sum(1 for h, r in zip(hypothesis, reference) if h == r)) / max(len(reference), 1)
+    wer_value = jiwer_wer(reference, hypothesis)
+    cer_value = jiwer_cer(reference, hypothesis)
+
+    return wer_value, cer_value
 
 def load_and_transcribe(audio_path, model_size="base"):
     """Whisper로 STT + 세그먼트별 타임스탬프 획득"""
@@ -138,6 +168,13 @@ def analyze_audio(audio_path, model_size="base"):
     print(f"[1/6] STT 변환 중... ({audio_path})")
     result = load_and_transcribe(audio_path, model_size)
 
+
+    print(f"STT 결과: {result['text']}")
+
+    print("STT 정확도 계산")
+    wer_value, cer_value = compute_stt_accuracy(result["text"], LABEL_PATH)
+    #print(f"WER: {wer_value}, CER: {cer_value}")
+
     print("[2/6] 무음/휴지 지표 계산 중...")
     silence_feats = compute_silence_features(audio_path)
 
@@ -158,10 +195,13 @@ def analyze_audio(audio_path, model_size="base"):
     output = {
         "audio_path": audio_path,
         "transcript": result["text"].strip(),
+     
         "segments": [
             {"start": round(s["start"], 2), "end": round(s["end"], 2), "text": s["text"].strip()}
             for s in result["segments"]
         ],
+        "wer": wer_value,
+        "cer": cer_value,
         "speech_rate": speech_rate_feats,
         "pitch": pitch_feats,
         "voice_quality": voice_quality_feats,
@@ -178,7 +218,8 @@ if __name__ == "__main__":
     print("\n" + "=" * 50)
     print("=== 전체 결과 요약 ===")
     print("=" * 50)
-    print(f"인식 텍스트: {result['transcript']}")
+    #print(f"인식 텍스트: {result['transcript']}")    
+    print(f"[정확도]        WER: {result['wer']}, CER: {result['cer']}")
     print(f"\n[발화속도]     SPM(전체): {result['speech_rate']['spm_total']}  "
           f"조음속도: {result['speech_rate']['articulation_rate_spm']}")
     print(f"[피치]         평균: {result['pitch']['f0_mean_hz']}Hz  "
