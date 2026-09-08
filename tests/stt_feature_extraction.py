@@ -23,7 +23,7 @@ def compute_stt_accuracy(hypothesis, label_path):
     """STT 정확도 계산 (WER, CER)"""
     with open(label_path, "r", encoding="utf-8") as f:
         label_data = json.load(f)
-    reference = label_data["script"]["script_stt_txt"]
+    reference = label_data["presentation"]["presen_script"]
     hypothesis = normalize(hypothesis)   
     reference = normalize(reference)    
 
@@ -168,8 +168,7 @@ def analyze_audio(audio_path, model_size="base"):
     print(f"[1/6] STT 변환 중... ({audio_path})")
     result = load_and_transcribe(audio_path, model_size)
 
-
-    print(f"STT 결과: {result['text']}")
+    #print(f"STT 결과: {result['text']}")
 
     print("STT 정확도 계산")
     wer_value, cer_value = compute_stt_accuracy(result["text"], LABEL_PATH)
@@ -230,6 +229,14 @@ if __name__ == "__main__":
           f"pause 횟수: {result['silence_pause']['num_pauses']}")
     print(f"[필러]         총 {result['filler']['filler_total_count']}회  "
           f"{result['filler']['filler_breakdown']}")
+
+    # 세그먼트 정보 출력
+    print("\n[세그먼트 정보]")
+    # 총 세그먼트 수 출력
+    print(f"총 세그먼트 수: {len(result['segments'])}")
+    for segment in result["segments"]:
+        print(f"[세그먼트] 시작: {segment['start']}  끝: {segment['end']}  텍스트: {segment['text']}")
+
 
     # JSON으로 저장 — 여러 샘플을 모아서 데이터셋 구축할 때 사용
     with open("acoustic_linguistic_features.json", "w", encoding="utf-8") as f:

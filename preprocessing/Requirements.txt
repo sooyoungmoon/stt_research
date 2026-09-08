@@ -1,0 +1,22 @@
+# [2-A] Audio preprocessing / acoustic features
+praat-parselmouth>=0.4.3
+librosa>=0.10.1
+soundfile>=0.12.1
+torch>=2.1.0
+torchaudio>=2.1.0
+ 
+# [2-B] STT
+openai-whisper>=20231117
+ 
+# [3] Linguistic features
+konlpy>=0.6.0
+ 
+# [4]/[5-A] Modeling / XAI
+pandas>=2.0.0
+numpy>=1.24.0
+scikit-learn>=1.3.0
+xgboost>=2.0.0
+shap>=0.44.0
+statsmodels>=0.14.0
+pingouin>=0.5.4
+ 
