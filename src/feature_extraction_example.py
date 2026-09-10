@@ -1,12 +1,3 @@
-"""
-AudioPreprocessor 테스트 스크립트
-
-사용법:
-    python test_audio_preprocess.py "D:/path/to/sample.wav"
-
-주의: src/preprocessing 폴더가 같은 프로젝트 안에 있어야 import가 됩니다.
-      (pitch_pipeline/src 를 기준으로 실행하거나, 아래처럼 sys.path에 추가)
-"""
 
 import sys
 import os
@@ -16,18 +7,18 @@ import parselmouth
 import numpy as np
 import json
 import re
+from features.detectors.acoustic_filler_detector import AcousticFillerDetector
+from features.linguistic_error_extractor import LinguisticErrorFeatureExtractor
+from features.acoustic_features import AcousticFeatureExtractor
+from features.detectors.acoustic_filler_detector import extract_word_timestamps
+from preprocessing.audio_preprocess import AudioPreprocessor
 from jiwer import wer as jiwer_wer, cer as jiwer_cer
-
-
-
 
 # src 폴더를 import 경로에 추가 (프로젝트 구조에 맞게 경로만 조정하면 됨)
 sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
 
 # tests/ 의 부모 디렉토리(= stt_research/)를 import 경로에 추가
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from preprocessing.audio_preprocess import AudioPreprocessor
 
 def compute_silence_features(audio_path, top_db=30):
     """무음/휴지 관련 지표"""
@@ -170,12 +161,17 @@ def main():
     for k, v in metrics.items():
         print(f"  {k}: {v}")
 
+    # segement 계산
+    vad_segments = preprocessor.get_speech_segments(waveform)
+
     print(f"[2-B] STT 테스트 시작")
 
     print(f"(1) STT 변환 중... ({audio_path})")
     result = load_and_transcribe(audio_path, model_size = "base")
-    
-   
+
+    # word timestamps 추출
+    word_timestamps = extract_word_timestamps(result)
+      
     
     print("(2) STT 정확도 계산")
     wer_value, cer_value = compute_stt_accuracy(result["text"], label_path)
@@ -184,17 +180,35 @@ def main():
 
     print(f"[3] 특징 추출 시작")
     print(f"[3-1] 음향 지표 추출")
-    # 피치 추출 
-    pitch_feats = compute_pitch_features(audio_path)
-    print(f"    -> 피치 특징: {pitch_feats}")
 
+    acoustic_feature_extractor = AcousticFeatureExtractor(audio_path)
+    acoustic_feats = acoustic_feature_extractor.extract()
+    print(f"    -> 음향 특징: {acoustic_feats}")
+
+    # 피치 추출 
+    #pitch_feats = compute_pitch_features(audio_path)
+    #print(f"    -> 피치 특징: {pitch_feats}")
 
     print(f"[3-2] 언어 & 유창성 지표")
     silence_feats = compute_silence_features(audio_path)
-
     speech_rate_feats =  compute_speech_rate(result, silence_feats["total_duration_sec"])
-    print(f"    -> 언어 & 유창성 특징: {silence_feats}")
+    print(f"    -> 발화 & 무음 특징: {silence_feats}")
+
+
+    filler_detector = AcousticFillerDetector(min_gap_sec=0.15, max_gap_sec=1.5)
+    acoustic_filler_candidates = filler_detector.detect_from_timestamps(vad_segments, word_timestamps)
+    print(f"    -> 음향 필러 후보: {acoustic_filler_candidates}")
+
+    
+
+
     print(f"    -> 발화속도 특징: {speech_rate_feats}")
+    print(f"[3-3] 언어 오류 지표")
+    linguistic_error_extractor = LinguisticErrorFeatureExtractor()
+
+    print(f"    -> STT 결과: {result['text']}")
+    linguistic_error_feats = linguistic_error_extractor.extract(result["text"])
+    print(f"    -> 언어 오류 특징: {linguistic_error_feats}")
 
 if __name__ == "__main__":
     main()

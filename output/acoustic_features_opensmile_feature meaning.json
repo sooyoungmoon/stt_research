@@ -1,0 +1,188 @@
+{
+    // --- [1. 기본 주파수 / 음조 (Pitch & Intonation: F0)] ---
+    // [기본주파수(F0) 평균 (반음 단위, 27.5Hz 기준)]: 전반적인 목소리 톤의 높낮이
+    "F0semitoneFrom27.5Hz_sma3nz_amean": 33.2483406067,
+    // [F0 정규화 표준편차 (변동계수)]: 음조 변화 폭(모노톤 여부 판단)
+    "F0semitoneFrom27.5Hz_sma3nz_stddevNorm": 0.0922895223,
+    // [F0 하위 20% 분위수]: 발화 중 비교적 낮은 음조 구간의 기준값
+    "F0semitoneFrom27.5Hz_sma3nz_percentile20.0": 31.8672809601,
+    // [F0 중앙값 (50% 분위수)]: 안정적인 기저 음조(Pitch) 높이
+    "F0semitoneFrom27.5Hz_sma3nz_percentile50.0": 33.3212089539,
+    // [F0 상위 80% 분위수]: 강조나 억양 상승 시의 높은 음조 구간
+    "F0semitoneFrom27.5Hz_sma3nz_percentile80.0": 35.3240699768,
+    // [F0 20%~80% 분위수 범위]: 음조의 실질적 다이내믹 레인지 (억양 역동성)
+    "F0semitoneFrom27.5Hz_sma3nz_pctlrange0-2": 3.4567890167,
+    // [F0 상승 기울기 평균 (반음/초)]: 억양이 올라갈 때의 평균 속도/경사
+    "F0semitoneFrom27.5Hz_sma3nz_meanRisingSlope": 95.9379730225,
+    // [F0 상승 기울기 표준편차]: 음조 상승 변화의 불규칙성
+    "F0semitoneFrom27.5Hz_sma3nz_stddevRisingSlope": 128.1784667969,
+    // [F0 하강 기울기 평균 (반음/초)]: 말끝을 내릴 때의 하강 속도/경사
+    "F0semitoneFrom27.5Hz_sma3nz_meanFallingSlope": 62.9069595337,
+    // [F0 하강 기울기 표준편차]: 음조 하강 변화의 불규칙성
+    "F0semitoneFrom27.5Hz_sma3nz_stddevFallingSlope": 151.0154876709,
+
+    // --- [2. 음량 및 청각적 강도 (Loudness & Intensity)] ---
+    // [청각적 음량(Loudness) 산술평균]: 청자가 인지하는 전반적인 성량/음성 크기
+    "loudness_sma3_amean": 0.1952425241,
+    // [음량 정규화 표준편차]: 성량의 다이내믹 변화 및 강약 조절 폭
+    "loudness_sma3_stddevNorm": 0.57389009,
+    // [음량 하위 20% 분위수]: 조용하게 발화된 구간의 성량
+    "loudness_sma3_percentile20.0": 0.0839698836,
+    // [음량 중앙값]: 일상적인 기저 성량 크기
+    "loudness_sma3_percentile50.0": 0.1816203594,
+    // [음량 상위 80% 분위수]: 강조 발화 시의 성량 크기
+    "loudness_sma3_percentile80.0": 0.2971236408,
+    // [음량 20%~80% 분위수 범위]: 성량의 강약 조절 다이내믹 레인지
+    "loudness_sma3_pctlrange0-2": 0.2131537497,
+    // [음량 상승 기울기 평균]: 소리가 커질 때의 도달 속도 (어택감)
+    "loudness_sma3_meanRisingSlope": 2.2664146423,
+    // [음량 상승 기울기 표준편차]: 소리 증폭 속도의 변동성
+    "loudness_sma3_stddevRisingSlope": 1.2882214785,
+    // [음량 하강 기울기 평균]: 소리가 감쇠할 때의 속도
+    "loudness_sma3_meanFallingSlope": 1.7222106457,
+    // [음량 하강 기울기 표준편차]: 소리 감쇠 속도의 변동성
+    "loudness_sma3_stddevFallingSlope": 0.983828783,
+
+    // --- [3. 스펙트럼 변화 및 음색 (Spectral Flux & MFCC)] ---
+    // [스펙트럼 플럭스 평균]: 프레임 간 주파수 에너지 변화율 (발화의 전환 속도 및 선명도)
+    "spectralFlux_sma3_amean": 0.0437351242,
+    // [스펙트럼 플럭스 표준편차]: 주파수 변화의 역동성
+    "spectralFlux_sma3_stddevNorm": 0.8137807846,
+    // [MFCC 1 평균]: 전반적인 음성 스펙트럼 에너지 분포
+    "mfcc1_sma3_amean": 28.0261688232,
+    // [MFCC 1 표준편차]: 스펙트럼 에너지의 시간적 변동성
+    "mfcc1_sma3_stddevNorm": 0.493227154,
+    // [MFCC 2 평균]: 저주파 대비 고주파 균형 (밝은 목소리 vs 묵직한 목소리)
+    "mfcc2_sma3_amean": 9.5888938904,
+    // [MFCC 2 표준편차]: 음색 밸런스의 변화도
+    "mfcc2_sma3_stddevNorm": 1.2531480789,
+    // [MFCC 3 평균]: 중음역대 주파수 공명 특성
+    "mfcc3_sma3_amean": -4.2003378868,
+    // [MFCC 3 표준편차]: 중음역대 공명 특성의 변동성
+    "mfcc3_sma3_stddevNorm": -2.6325614452,
+    // [MFCC 4 평균]: 세부 고조파 구조 및 발음의 형태적 특성
+    "mfcc4_sma3_amean": -22.987077713,
+    // [MFCC 4 표준편차]: 세부 고조파 구조의 변동성
+    "mfcc4_sma3_stddevNorm": -0.4581787288,
+
+    // --- [4. 음성 떨림 및 노이즈 안정성 (Voice Quality & Perturbation)] ---
+    // [국소 지터(Jitter) 평균]: 성대 진동 주기(시간)의 불규칙한 미세 변동률 (음성 떨림/긴장도)
+    "jitterLocal_sma3nz_amean": 0.0248030983,
+    // [국소 지터 표준편차]: 성대 진동 불안정성의 편차
+    "jitterLocal_sma3nz_stddevNorm": 1.9394925833,
+    // [국소 쉬머(Shimmer dB) 평균]: 성대 진동 진폭(크기)의 불규칙한 미세 변동률 (목소리 갈라짐/떨림)
+    "shimmerLocaldB_sma3nz_amean": 0.9940051436,
+    // [국소 쉬머 표준편차]: 진폭 변동률의 편차
+    "shimmerLocaldB_sma3nz_stddevNorm": 0.7364987731,
+    // [고조파 대 잡음비(HNR dB) 평균]: 음성의 순도 (높을수록 맑고 또렷함, 낮을수록 쉰 목소리/잡음)
+    "HNRdBACF_sma3nz_amean": 8.0565738678,
+    // [HNR 표준편차]: 음성 순도의 시간적 안정성
+    "HNRdBACF_sma3nz_stddevNorm": 0.4146796167,
+
+    // --- [5. 성문 음원 및 스펙트럼 감쇠 특성 (Glottal & Spectral Slopes)] ---
+    // [H1-H2 진폭 차이 평균]: 1차·2차 고조파 간 에너지 차이 (성대 접촉 정도: 숨소리 섞임 여부)
+    "logRelF0-H1-H2_sma3nz_amean": 0.2414823323,
+    // [H1-H2 진폭 차이 표준편차]: 성대 접촉 강도의 변동 폭
+    "logRelF0-H1-H2_sma3nz_stddevNorm": 29.1570472717,
+    // [H1-A3 진폭 차이 평균]: 기음 대 3차 포먼트 고주파 성분비 (고주파 감쇠 및 음성 날카로움)
+    "logRelF0-H1-A3_sma3nz_amean": 33.3337898254,
+    // [H1-A3 진폭 차이 표준편차]: 고주파 감쇠비의 변동성
+    "logRelF0-H1-A3_sma3nz_stddevNorm": 0.2158560902,
+
+    // --- [6. 포먼트 주파수 / 조음 및 발음 선명도 (Formants)] ---
+    // [F1 주파수 평균 (Hz)]: 제1포먼트 (턱 개구도/모음의 고저 위치와 연관)
+    "F1frequency_sma3nz_amean": 713.098449707,
+    // [F1 주파수 표준편차]: 모음 조음 시 턱/입술 움직임의 역동성
+    "F1frequency_sma3nz_stddevNorm": 0.1981726587,
+    // [F1 대역폭 평균 (Hz)]: 제1포먼트 대역폭 (공명 안정도)
+    "F1bandwidth_sma3nz_amean": 1410.3927001953,
+    // [F1 대역폭 표준편차]: 공명 안정도의 편차
+    "F1bandwidth_sma3nz_stddevNorm": 0.1453150064,
+    // [F1 진폭 상대비율 평균]: F0 대비 F1의 에너지 강도
+    "F1amplitudeLogRelF0_sma3nz_amean": -73.0541000366,
+    // [F1 진폭 상대비율 표준편차]: F1 에너지 강도의 변동성
+    "F1amplitudeLogRelF0_sma3nz_stddevNorm": -1.2356261015,
+    // [F2 주파수 평균 (Hz)]: 제2포먼트 (혀의 전후 위치/조음 정확도와 연관)
+    "F2frequency_sma3nz_amean": 1777.6374511719,
+    // [F2 주파수 표준편차]: 모음 조음 시 혀 움직임의 민첩성/범위
+    "F2frequency_sma3nz_stddevNorm": 0.1313146502,
+    // [F2 대역폭 평균 (Hz)]: 제2포먼트 대역폭
+    "F2bandwidth_sma3nz_amean": 1160.2761230469,
+    // [F2 대역폭 표준편차]: 제2포먼트 대역폭 편차
+    "F2bandwidth_sma3nz_stddevNorm": 0.280670166,
+    // [F2 진폭 상대비율 평균]: F0 대비 F2의 에너지 강도
+    "F2amplitudeLogRelF0_sma3nz_amean": -84.2276077271,
+    // [F2 진폭 상대비율 표준편차]: F2 에너지 강도의 변동성
+    "F2amplitudeLogRelF0_sma3nz_stddevNorm": -0.9589985609,
+    // [F3 주파수 평균 (Hz)]: 제3포먼트 (개인 고유의 비강/구강 공명 및 성도 길이 특성)
+    "F3frequency_sma3nz_amean": 2889.4304199219,
+    // [F3 주파수 표준편차]: 성도 공명 특성의 변동 폭
+    "F3frequency_sma3nz_stddevNorm": 0.0645891577,
+    // [F3 대역폭 평균 (Hz)]: 제3포먼트 대역폭
+    "F3bandwidth_sma3nz_amean": 950.9432983398,
+    // [F3 대역폭 표준편차]: 제3포먼트 대역폭 편차
+    "F3bandwidth_sma3nz_stddevNorm": 0.3432779014,
+    // [F3 진폭 상대비율 평균]: F0 대비 F3의 에너지 강도
+    "F3amplitudeLogRelF0_sma3nz_amean": -89.9981231689,
+    // [F3 진폭 상대비율 표준편차]: F3 에너지 강도의 변동성
+    "F3amplitudeLogRelF0_sma3nz_stddevNorm": -0.8502732515,
+
+    // --- [7. 유성음 구간 음질 특성 (Voiced Segments Analysis)] ---
+    // [유성음 알파 비율(Alpha Ratio)]: 50kHz 이하 저주파 에너지 대 고주파 에너지 비율
+    "alphaRatioV_sma3nz_amean": -19.542350769,
+    // [유성음 알파 비율 표준편차]: 유성음 고저주파 균형의 변동성
+    "alphaRatioV_sma3nz_stddevNorm": -0.3154223561,
+    // [유성음 함마버그 인덱스(Hammarberg Index)]: 0~2kHz 대역 피크와 2~5kHz 대역 피크 간 차이
+    "hammarbergIndexV_sma3nz_amean": 31.7402591705,
+    // [유성음 함마버그 인덱스 표준편차]: 음성 밝기/긴장도의 변동 폭
+    "hammarbergIndexV_sma3nz_stddevNorm": 0.2292579263,
+    // [유성음 0-500Hz 스펙트럼 기울기]: 저음역 에너지 감쇠 경사
+    "slopeV0-500_sma3nz_amean": 0.0868006796,
+    // [유성음 0-500Hz 스펙트럼 기울기 표준편차]: 저음역 감쇠 경사의 변동 폭
+    "slopeV0-500_sma3nz_stddevNorm": 0.1995931566,
+    // [유성음 500-1500Hz 스펙트럼 기울기]: 중음역 에너지 감쇠 경사
+    "slopeV500-1500_sma3nz_amean": -0.0332866833,
+    // [유성음 500-1500Hz 스펙트럼 기울기 표준편차]: 중음역 감쇠 경사의 변동 폭
+    "slopeV500-1500_sma3nz_stddevNorm": -0.3904314041,
+    // [유성음 스펙트럼 플럭스 평균]: 유성음 구간 내 주파수 전환 속도
+    "spectralFluxV_sma3nz_amean": 0.0579202659,
+    // [유성음 스펙트럼 플럭스 표준편차]: 유성음 주파수 전환 속도의 변동성
+    "spectralFluxV_sma3nz_stddevNorm": 0.5757157803,
+    // [유성음 MFCC 1~4 지표]: 모음 구간의 음색 및 에너지 특성
+    "mfcc1V_sma3nz_amean": 34.798500061,
+    "mfcc1V_sma3nz_stddevNorm": 0.2624628544,
+    "mfcc2V_sma3nz_amean": 11.9119787216,
+    "mfcc2V_sma3nz_stddevNorm": 0.9759643674,
+    "mfcc3V_sma3nz_amean": -3.8540546894,
+    "mfcc3V_sma3nz_stddevNorm": -3.1023676395,
+    "mfcc4V_sma3nz_amean": -24.7591438293,
+    "mfcc4V_sma3nz_stddevNorm": -0.4541542828,
+
+    // --- [8. 무성음 구간 음질 특성 (Unvoiced Segments Analysis)] ---
+    // [무성음 알파 비율]: 자음/숨소리 구간의 고주파 대비 저주파 비율
+    "alphaRatioUV_sma3nz_amean": -8.5143823624,
+    // [무성음 함마버그 인덱스]: 마찰음/파열음의 에너지 급락 정도
+    "hammarbergIndexUV_sma3nz_amean": 17.0738391876,
+    // [무성음 0-500Hz 스펙트럼 기울기]: 무성음 구간 저역대 에너지 기울기
+    "slopeUV0-500_sma3nz_amean": 0.079913035,
+    // [무성음 500-1500Hz 스펙트럼 기울기]: 무성음 구간 중역대 에너지 기울기
+    "slopeUV500-1500_sma3nz_amean": -0.0076381322,
+    // [무성음 스펙트럼 플럭스]: 무성 자음 구간의 주파수 변화 속도
+    "spectralFluxUV_sma3nz_amean": 0.0163859595,
+
+    // --- [9. 시간/리듬 및 발화 구조 지표 (Temporal & Speech Rhythm)] ---
+    // [초당 음량 피크 발생 수]: 음절 강세 빈도 (말의 템포 및 리듬감)
+    "loudnessPeaksPerSec": 3.2697949409,
+    // [초당 유성음 구간 수]: 유성음 청크 분할 빈도 (조음 속도와 연관)
+    "VoicedSegmentsPerSec": 2.0092885494,
+    // [유성음 구간 평균 지속시간 (초)]: 한 호흡에 끊김 없이 이어지는 평균 발화 길이
+    "MeanVoicedSegmentLengthSec": 0.3184914589,
+    // [유성음 구간 지속시간 표준편차]: 유성음 길이의 변동성 (호흡 조절 균일성)
+    "StddevVoicedSegmentLengthSec": 0.2279564291,
+    // [무성음(포즈/자음) 평균 지속시간 (초)]: 발화 간 쉬는 시간(Pause)의 평균 길이
+    "MeanUnvoicedSegmentLength": 0.1871676147,
+    // [무성음 구간 지속시간 표준편차]: 쉼(Pause) 길이의 변동 폭 (머뭇거림 여부 탐지)
+    "StddevUnvoicedSegmentLength": 0.3038122356,
+    // [등가 음압 레벨 (dBp)]: 전체 오디오 신호의 유효 음향 세기
+    "equivalentSoundLevel_dBp": -37.6210403442
+}

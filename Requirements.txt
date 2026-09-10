@@ -10,7 +10,9 @@ openai-whisper>=20231117
  
 # [3] Linguistic features
 konlpy>=0.6.0
- 
+jamo>=0.4.1
+python-Levenshtein>=0.25.0
+
 # [4]/[5-A] Modeling / XAI
 pandas>=2.0.0
 numpy>=1.24.0
@@ -19,4 +21,3 @@ xgboost>=2.0.0
 shap>=0.44.0
 statsmodels>=0.14.0
 pingouin>=0.5.4
- 

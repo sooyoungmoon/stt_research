@@ -48,6 +48,14 @@ class AudioPreprocessor:
             waveform = resampler(waveform)
         return waveform.squeeze(0)
 
+    def get_speech_segments(self, waveform: torch.Tensor) -> list[tuple[float, float]]:
+        """VAD가 '발화 중'으로 판단한 구간을 (start_sec, end_sec) 리스트로 반환.
+        Whisper 단어 타임스탬프와 대조해 필러(간투어) 구간을 찾을 때 사용."""
+        speech_ts = self.get_speech_timestamps(
+            waveform, self.vad_model, sampling_rate=self.target_sr
+        )
+        return [(ts["start"] / self.target_sr, ts["end"] / self.target_sr) for ts in speech_ts]
+
     def detect_pauses(self, waveform: torch.Tensor) -> list[PauseSegment]:
         """발화 구간(speech_timestamps) 사이의 간격을 무음 구간으로 계산"""
         speech_ts = self.get_speech_timestamps(
